@@ -1,42 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Great Oldbury Yard Trail</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f8f4;
-      color: #333;
-      text-align: center;
-      margin: 0;
-      padding: 40px;
-    }
-    h1 {
-      color: #2e7d32;
-    }
-    .box {
-      background: white;
-      max-width: 700px;
-      margin: auto;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,.1);
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Great Oldbury Yard Trail</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial,Helvetica,sans-serif;
+background:#f4f4f4;
+}
+
+header{
+background:#2e7d32;
+color:white;
+padding:20px;
+text-align:center;
+}
+
+header h1{
+margin:0;
+font-size:30px;
+}
+
+header p{
+margin:8px 0;
+}
+
+.counter{
+background:white;
+max-width:500px;
+margin:20px auto;
+padding:18px;
+border-radius:12px;
+font-size:28px;
+font-weight:bold;
+text-align:center;
+box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+
+#map{
+height:70vh;
+margin:20px;
+border-radius:12px;
+overflow:hidden;
+}
+
+footer{
+text-align:center;
+padding:20px;
+color:#666;
+}
+
+</style>
+
 </head>
+
 <body>
-  <div class="box">
-    <h1>🏡 Great Oldbury Yard Trail</h1>
-    <h2>Saturday 29 August 2026</h2>
-    <p><strong>10:00am – 3:00pm</strong></p>
 
-    <p>Welcome to the official Great Oldbury Yard Trail.</p>
+<header>
 
-    <p>This website is currently being built.</p>
+<h1>🏡 Great Oldbury Yard Trail</h1>
 
-    <p>Check back soon for the interactive map, participating houses and suggested walking route.</p>
-  </div>
+<p><strong>Saturday 29 August 2026</strong></p>
+
+<p>10:00am – 3:00pm</p>
+
+</header>
+
+<div class="counter" id="counter">
+
+🏡 Loading stalls...
+
+</div>
+
+<div id="map"></div>
+
+<footer>
+
+Great Oldbury Yard Trail
+
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+
+const map=L.map('map').setView([51.742,-2.247],15);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+
+maxZoom:19,
+
+attribution:'© OpenStreetMap'
+
+}).addTo(map);
+
+fetch('stalls.json')
+.then(response=>response.json())
+.then(stalls=>{
+
+document.getElementById("counter").innerHTML=
+"🏡 "+stalls.length+" Stalls Confirmed";stalls.forEach((stall)=>{
+
+L.marker([51.742,-2.247])
+
+.addTo(map)
+
+.bindPopup("<b>"+stall.address+"</b>");
+
+});
+
+})
+
+.catch(error=>{
+
+document.getElementById("counter").innerHTML="Unable to load stalls";
+
+});
+
+</script>
+
 </body>
+
 </html>
