@@ -3,129 +3,94 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Great Oldbury Yard Trail</title>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <style>
-
 body{
-margin:0;
-font-family:Arial,Helvetica,sans-serif;
-background:#f4f4f4;
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f4f4;
 }
 
 header{
-background:#2e7d32;
-color:white;
-padding:20px;
-text-align:center;
+  background:#2e7d32;
+  color:white;
+  text-align:center;
+  padding:20px;
 }
 
-header h1{
-margin:0;
-font-size:30px;
-}
-
-header p{
-margin:8px 0;
-}
-
-.counter{
-background:white;
-max-width:500px;
-margin:20px auto;
-padding:18px;
-border-radius:12px;
-font-size:28px;
-font-weight:bold;
-text-align:center;
-box-shadow:0 2px 8px rgba(0,0,0,.15);
+#counter{
+  text-align:center;
+  font-size:28px;
+  font-weight:bold;
+  padding:20px;
 }
 
 #map{
-height:70vh;
-margin:20px;
-border-radius:12px;
-overflow:hidden;
-}
-
-footer{
-text-align:center;
-padding:20px;
-color:#666;
+  height:75vh;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <header>
-
 <h1>🏡 Great Oldbury Yard Trail</h1>
-
-<p><strong>Saturday 29 August 2026</strong></p>
-
-<p>10:00am – 3:00pm</p>
-
+<p>Saturday 29 August 2026 • 10am–3pm</p>
 </header>
 
-<div class="counter" id="counter">
-
-🏡 Loading stalls...
-
-</div>
+<div id="counter">Loading stalls...</div>
 
 <div id="map"></div>
-
-<footer>
-
-Great Oldbury Yard Trail
-
-</footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
-const map=L.map('map').setView([51.742,-2.247],15);
+const map = L.map('map').setView([51.742,-2.280],15);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-
 maxZoom:19,
-
-attribution:'© OpenStreetMap'
-
+attribution:'© OpenStreetMap contributors'
 }).addTo(map);
 
-fetch('stalls.json')
-.then(response=>response.json())
+fetch("stalls.json")
+.then(r=>r.json())
 .then(stalls=>{
 
-document.getElementById("counter").innerHTML=
-"🏡 "+stalls.length+" Stalls Confirmed";stalls.forEach((stall)=>{
+document.getElementById("counter").innerHTML =
+"🏡 "+stalls.length+" Stalls Confirmed";const locations = {
+  "15 Daniels Way": [51.7419, -2.2798],
+  "23 Great Oldbury Drive": [51.7428, -2.2778],
+  "7 Westfield": [51.7440, -2.2818],
+  "33 Arthur Keene Close": [51.7424, -2.2809]
+};
 
-L.marker([51.742,-2.247])
+stalls.forEach(stall => {
 
-.addTo(map)
+  const coords = locations[stall.address];
 
-.bindPopup("<b>"+stall.address+"</b>");
+  if(coords){
+
+    L.marker(coords)
+      .addTo(map)
+      .bindPopup("<strong>"+stall.address+"</strong>");
+
+  }
 
 });
 
 })
-
 .catch(error=>{
 
-document.getElementById("counter").innerHTML="Unable to load stalls";
+document.getElementById("counter").innerHTML="Unable to load stalls.";
 
 });
 
 </script>
 
 </body>
-
 </html>
