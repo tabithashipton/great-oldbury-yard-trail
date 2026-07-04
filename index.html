@@ -62,11 +62,11 @@ fetch("stalls.json")
 .then(stalls=>{
 
 document.getElementById("counter").innerHTML =
-"🏡 "+stalls.length+" Stalls Confirmed";const locations = {
-  "15 Daniels Way": [51.7419, -2.2798],
-  "23 Great Oldbury Drive": [51.7428, -2.2778],
-  "7 Westfield": [51.7440, -2.2818],
-  "33 Arthur Keene Close": [51.7424, -2.2809]
+"🏡 "+stalls.length+" Stalls const locations = {
+"15 Daniels Way, GL10 3XR": [51.7419,-2.2798],
+"23 Great Oldbury Drive, GL10 3FP": [51.7428,-2.2778],
+"7 Westfield, GL10 3XT": [51.7440,-2.2818],
+"33 Arthur Keene Close, GL10 3ST": [51.7424,-2.2809]
 };
 
 stalls.forEach(stall => {
