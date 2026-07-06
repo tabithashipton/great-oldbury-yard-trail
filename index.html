@@ -57,8 +57,8 @@ maxZoom:19,
 attribution:'© OpenStreetMap contributors'
 }).addTo(map);
 
-fetch("stalls.json")
-.then(r=>r.json())
+fetch("stalls.json?v=" + Date.now())
+  .then(r=>r.json())
 .then(stalls=>{
 
 document.getElementById("counter").innerHTML =
