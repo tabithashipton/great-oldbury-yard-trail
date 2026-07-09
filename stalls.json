@@ -58,5 +58,13 @@
   {
     "id": 15,
     "address": "19 Mangostone Way, GL10 3XT"
-  }
+  },
+  {
+  "id": 18,
+  "address": "3 Gilbert Young Close, GL10 3GU"
+},
+{
+  "id": 19,
+  "address": "6 Compton Close, GL10 3WL"
+}
 ]
