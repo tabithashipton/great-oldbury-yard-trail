@@ -95,7 +95,18 @@ font-weight:bold;">
 </a>
 
   </div>
-
+<script>
+fetch("stalls.json?v=" + Date.now())
+  .then(response => response.json())
+  .then(stalls => {
+    document.getElementById("counter").innerHTML =
+      "🏡 " + stalls.length + " Stalls Confirmed";
+  })
+  .catch(() => {
+    document.getElementById("counter").innerHTML =
+      "Unable to load stalls.";
+  });
+</script>
 
 </body>
 </html>
