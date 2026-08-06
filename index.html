@@ -52,11 +52,54 @@ header{
 #map{
   height:75vh;
 }
+.balloon{
+    position:fixed;
+    font-size:42px;
+    opacity:.65;
+    pointer-events:none;
+    z-index:999;
+    animation:floatUp 22s linear infinite;
+}
 
+.balloon1{
+    left:5%;
+    bottom:-80px;
+    animation-delay:0s;
+}
+
+.balloon2{
+    right:8%;
+    bottom:-120px;
+    animation-delay:10s;
+}
+
+@keyframes floatUp{
+    0%{
+        transform:translateY(0) rotate(-4deg);
+        opacity:0;
+    }
+
+    10%{
+        opacity:.7;
+    }
+
+    90%{
+        opacity:.7;
+    }
+
+    100%{
+        transform:translateY(-120vh) rotate(8deg);
+        opacity:0;
+    }
+}
 </style>
 </head>
 
 <body>
+
+  <div class="balloon balloon1">🎈</div>
+<div class="balloon balloon2">🎈</div>
+  
 
 <header style="padding:0;background:white;">
   <img src="banner.png" alt="Great Oldbury Yard Trail"
