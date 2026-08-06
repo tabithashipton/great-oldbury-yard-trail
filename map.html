@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DJYPGN0RXY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DJYPGN0RXY');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Great Oldbury Yard Trail</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f4f4;
+}
+
+header{
+  background:#2e7d32;
+  color:white;
+  text-align:center;
+  padding:20px;
+}
+
+#counter{
+  text-align:center;
+  font-size:28px;
+  font-weight:bold;
+  padding:20px;
+}
+
+#map{
+  height:75vh;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🏡 Great Oldbury Yard Trail</h1>
+<p>Saturday 29 August 2026 • 10am–3pm</p>
+</header>
+
+<div id="counter">Loading stalls...</div>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+
+const map = L.map('map').setView([51.7580,-2.3010],15);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+maxZoom:19,
+attribution:'© OpenStreetMap contributors'
+}).addTo(map);
+
+fetch("stalls.json?v=" + Date.now())
+  .then(r=>r.json())
+.then(stalls=>{
+
+document.getElementById("counter").innerHTML =
+"🏡 " + stalls.length + " Stalls Confirmed";
+
+const locations = {
+  "15 Daniels Way, GL10 3XR": [51.7595173, -2.300525],
+  "23 Great Oldbury Drive, GL10 3FP": [51.756984, -2.308281],
+  "7 Westfield, GL10 3XT": [51.7594345, -2.3022687],
+  "33 Arthur Keene Close, GL10 3ST": [51.754864, -2.303106],
+  "36 Cyril Cowley Close, GL10 3WL": [51.7578573, -2.2934902],
+  "2 James Sleeman Close, GL10 3GU": [51.7573432, -2.3081033],
+  "14 Westfield, GL10 3XT": [51.7595278, -2.3024444],
+  "30 Charles Almond Close, GL10 3GU": [51.756247, -2.312318],
+  "2 Old Orchard, GL10 3FP": [51.756777, -2.301711],
+  "4 David Butt Close, GL10 3GU": [51.757208, -2.311068],
+  "5 Marling Way, GL10 3XX": [51.758992, -2.297204],
+  "18 Magerson Way, GL10 3XT": [51.760210, -2.302748],
+  "12 Maurice Shill Close, GL10 3GU": [51.756111, -2.309184],
+  "6 Old Orchard, GL10 3FP": [51.757106, -2.301675],
+  "19 Mangostone Way, GL10 3XT": [51.757376, -2.302322],
+  "3 Gilbert Young Close, GL10 3GU": [51.756729, -2.310693],
+  "6 Compton Close, GL10 3WL": [51.756724, -2.292327],
+  "75 Thomas Tudor Way, GL10 3RG": [51.755321, -2.303779],
+  "57 Great Oldbury Drive, GL10 3FP": [51.756503, -2.301510],
+  "33 Great Oldbury Drive, GL10 3FP": [51.757080, -2.307245],
+  "10 Yarn Grove, GL10 3XT": [51.758104, -2.295567],
+  "17 David Butt Close, GL10 3GU": [51.757437, -2.310377],
+  "3 Old Orchard, GL10 3XJ": [51.757034, -2.301791],
+  "24 Cyril Cowley Close, GL10 3WL": [51.757945, -2.293293],
+  "15 Great Oldbury Drive, GL10 3FP": [51.756729, -2.309492],
+};
+
+stalls.forEach(stall => {
+
+  const coords = locations[stall.address];
+
+  if(coords){
+
+    L.marker(coords)
+      .addTo(map)
+      .bindPopup("<strong>"+stall.address+"</strong>");
+
+  }
+
+});
+
+})
+.catch(error=>{
+
+document.getElementById("counter").innerHTML="Unable to load stalls.";
+
+});
+
+</script>
+
+</body>
+</html>
