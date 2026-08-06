@@ -51,7 +51,84 @@ header{
 <p>Saturday 29 August 2026 • 10am–3pm</p>
 </header>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Interactive Map | Great Oldbury Yard Trail</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4f4f4;
+}
+
+header{
+    background:#2e7d32;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+#counter{
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+    padding:20px;
+}
+
+.buttons{
+    text-align:center;
+    padding-bottom:20px;
+}
+
+.button{
+    display:inline-block;
+    background:#2e7d32;
+    color:white;
+    text-decoration:none;
+    padding:14px 24px;
+    border-radius:8px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+#map{
+    height:75vh;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>🗺️ Interactive Yard Trail Map</h1>
+
+<p>
+Find every stall taking part in this year's trail.
+</p>
+
+</header>
+
 <div id="counter">Loading stalls...</div>
+
+<div class="buttons">
+
+<a class="button" href="index.html">
+🏠 Back to Home
+</a>
+
+</div>
 
 <div id="map"></div>
 
